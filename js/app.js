@@ -30,24 +30,6 @@ card.innerHTML = `
                     </div>
                 </div>
 `;
-// const imageContainer = document.createElement('div');
-// imageContainer.setAttribute('class', 'card-img-container');
-// card.appendChild(imageContainer);
-// let image = document.createElement('img');
-// image.setAttribute('src', employee.picture.thumbnail);
-// image.setAttribute('alt', 'profile picture');
-// imageContainer.appendChild(image);
-// const infoContainer = document.createElement('div');
-// infoContainer.setAttribute('class', 'card-info-container');
-// card.appendChild(infoContainer);
-// const name = document.createElement('h3');
-// name.setAttribute('class', 'card-name cap');
-// name.setAttribute('id', 'name');
-// infoContainer.appendChild(name);
-
-// card.innerHTML = `
-// <h2>${data}</h2>
-// `;
 });
 }
 
@@ -62,6 +44,3 @@ window.addEventListener("load", (e) => {
 // .then(data => console.log(data.results[0].name.first))
 .catch(err => console.log('Error Fetching API: ', err));
 });
-
-
-
