@@ -13,7 +13,6 @@ function generateHTML(data) {
                     <div class="card-info-container">
                         <h3 id="name" class="card-name cap">${employee.name.first} ${employee.name.last}</h3>
                         <p class="card-text">${employee.email}</p>
-                        <p class="card-text">${employee.phone}</p>
                         <p class="card-text cap">${employee.location.city}, ${employee.location.state}</p>
                     </div>
                 </div>
