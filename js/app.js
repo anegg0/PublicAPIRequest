@@ -1,5 +1,6 @@
 const gallery = document.getElementById("gallery");
 
+// This function creates a card for each employee returned by the api call
 function generateHTML(data) {
   data.results.map((employee) => {
     const card = document.createElement("div");
@@ -12,6 +13,7 @@ function generateHTML(data) {
                     <div class="card-info-container">
                         <h3 id="name" class="card-name cap">${employee.name.first} ${employee.name.last}</h3>
                         <p class="card-text">${employee.email}</p>
+                        <p class="card-text">${employee.phone}</p>
                         <p class="card-text cap">${employee.location.city}, ${employee.location.state}</p>
                     </div>
                 </div>
@@ -65,7 +67,7 @@ function updateModal(employee) {
 
   modalInfoContainer.insertAdjacentHTML("afterbegin", modalCustomContent);
 }
-
+//
 function addClickHandlers(data) {
   const cardArray = document.getElementsByClassName("card");
   for (let i = 0; i < cardArray.length; i++) {
@@ -77,8 +79,7 @@ function addClickHandlers(data) {
     });
   }
 }
-
-//
+// 
 window.addEventListener("load", (e) => {
   fetch("https://randomuser.me/api/?results=12")
     .then((response) => response.json())
