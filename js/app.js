@@ -1,12 +1,11 @@
 const gallery = document.getElementById("gallery");
-
 // This function creates a card for each employee returned by the api call
 function generateHTML(data) {
   data.results.map((employee) => {
-    const card = document.createElement("div");
+     const card = document.createElement("div");
     gallery.appendChild(card);
     card.innerHTML = `
-                <div class="card">
+                <div class="card show">
                     <div class="card-img-container">
                         <img class="card-img" src="${employee.picture.thumbnail}" alt="profile picture">
                     </div>
@@ -78,7 +77,21 @@ function addClickHandlers(data) {
     });
   }
 }
-// 
+// const searchInput = document.querySelector("#search-input");
+// searchInput.addEventListener("keyup", (e) => {
+//   const searchString = e.target.value;
+//   return searchString;
+// });
+
+//   const filteredEmployees = employees.filter((employee) => {
+//     return (
+//       employee.name.first.toLowerCase().includes(searchString) ||
+//       employee.name.last.toLowerCase().includes(searchString)
+//     );
+//   });
+
+//const displayEmployees = filteredEmployees.map((employee) => {
+
 window.addEventListener("load", (e) => {
   fetch("https://randomuser.me/api/?results=12")
     .then((response) => response.json())

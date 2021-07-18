@@ -1,0 +1,5 @@
+search input must be retrieved from the DOM
+input must be compared to the existing data on the cards.
+if the input matches a card, the card is returned.
+the input can be a partial match.
+the matching cards must be the only ones displayed.

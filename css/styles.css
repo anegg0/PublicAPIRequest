@@ -76,9 +76,10 @@ header h1 {
     max-width: 1200px;
     margin: auto;
 }
-  
-.card {
+.show {
     display: flex;
+}  
+.card {
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: flex-start;
