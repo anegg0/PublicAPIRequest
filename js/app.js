@@ -1,8 +1,9 @@
 const gallery = document.getElementById("gallery");
+const nameArray = document.getElementsByClassName("name");
 // This function creates a card for each employee returned by the api call
 function generateHTML(data) {
   data.results.map((employee) => {
-     const card = document.createElement("div");
+    const card = document.createElement("div");
     gallery.appendChild(card);
     card.innerHTML = `
                 <div class="card show">
@@ -10,7 +11,7 @@ function generateHTML(data) {
                         <img class="card-img" src="${employee.picture.thumbnail}" alt="profile picture">
                     </div>
                     <div class="card-info-container">
-                        <h3 id="name" class="card-name cap">${employee.name.first} ${employee.name.last}</h3>
+                        <h3 class="card-name cap name">${employee.name.first} ${employee.name.last}</h3>
                         <p class="card-text">${employee.email}</p>
                         <p class="card-text cap">${employee.location.city}, ${employee.location.state}</p>
                     </div>
@@ -46,7 +47,7 @@ function updateModal(employee) {
   var modalCustomContent = `<img class="modal-img" src="${
     employee.picture.medium
   }" alt="profile picture">
-                        <h3 id="name" class="modal-name cap">${
+                        <h3 class="modal-name cap name">${
                           employee.name.first
                         } ${employee.name.last}</h3>
                         <p class="modal-text">${employee.email}</p>
@@ -65,7 +66,7 @@ function updateModal(employee) {
 
   modalInfoContainer.insertAdjacentHTML("afterbegin", modalCustomContent);
 }
-//
+
 function addClickHandlers(data) {
   const cardArray = document.getElementsByClassName("card");
   for (let i = 0; i < cardArray.length; i++) {
@@ -77,20 +78,42 @@ function addClickHandlers(data) {
     });
   }
 }
-// const searchInput = document.querySelector("#search-input");
-// searchInput.addEventListener("keyup", (e) => {
-//   const searchString = e.target.value;
-//   return searchString;
+
+const searchInput = document.querySelector("#search-input");
+searchInput.addEventListener("keyup", (e) => {
+  const searchString = e.target.value.toLowerCase();
+  //console.log(searchString);
+  const filterThroughNames = (nameArray) => {
+    for (let i = 0; i < nameArray.length; i++) {
+      if (!nameArray[i].textContent.toLowerCase().includes(searchString)) {
+        // console.log(`nameArray is ${nameArray[i].innerHTML}`);
+      //} else {
+        //(!nameArray[i].textContent.toLowerCase().includes(searchString))
+        //console.log(nameArray[i].parentElement.parentElement);
+        
+        // nameArray[i].parentElement.parentElement.classList.remove("show");
+        nameArray[i].parentElement.parentElement.style.display = "none";
+      }
+    }
+  };
+  filterThroughNames(nameArray);
+});
+
+// const filteredEmployees = nameArray.filter((searchString) => {
+//   return (
+//   nameArray.textContent.toLowerCase().includes(searchString)
+//     // employee.name.last.toLowerCase().includes(searchString)
+//   );
 // });
 
-//   const filteredEmployees = employees.filter((employee) => {
-//     return (
-//       employee.name.first.toLowerCase().includes(searchString) ||
-//       employee.name.last.toLowerCase().includes(searchString)
-//     );
-//   });
-
-//const displayEmployees = filteredEmployees.map((employee) => {
+// function searchFunction(searchInput, names) {
+// console.log(searchInput);
+// console.log(names);
+// for (let i = 0; i < names.length; i++) {
+//   if (searchInput.value.length !== 0 && names[i].textContent.toLowerCase().includes(searchInput.value.toLowerCase())) {
+//     names[i].classList.add('match');
+//   }
+// }
 
 window.addEventListener("load", (e) => {
   fetch("https://randomuser.me/api/?results=12")
