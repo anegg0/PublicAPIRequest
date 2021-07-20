@@ -1,5 +1,5 @@
 const gallery = document.getElementById("gallery");
-const nameArray = document.getElementsByClassName("name");
+const nameHtmlCollection = document.getElementsByClassName("name");
 // This function creates a card for each employee returned by the api call
 function generateHTML(data) {
   data.results.map((employee) => {
@@ -82,24 +82,41 @@ function addClickHandlers(data) {
 const searchInput = document.querySelector("#search-input");
 searchInput.addEventListener("keyup", (e) => {
   const searchString = e.target.value.toLowerCase();
-  const filterThroughNames = (nameArray) => {
-    for (let i = 0; i < nameArray.length; i++) {
-      if (!nameArray[i].textContent.toLowerCase().includes(searchString)) {
-        nameArray[i].parentElement.parentElement.style.display = "none";
+  let noMatch = true;
+  const filterThroughNames = (nameHtmlCollection) => {
+    for (let i = 0; i < nameHtmlCollection.length; i++) {
+      console.log(nameHtmlCollection[i].textContent.indexOf(searchString));
+      if (
+        !nameHtmlCollection[i].textContent.toLowerCase().includes(searchString)
+      ) {
+        nameHtmlCollection[i].parentElement.parentElement.style.display =
+          "none";
       }
     }
+    for (let i = 0; i < nameHtmlCollection.length; i++) {
+      if (
+        !nameHtmlCollection[i].textContent.toLowerCase().includes(searchString)
+      )
+        continue;
+      noMatch = false;
+      break;
+    }
+    if (noMatch) {
+      document.getElementById("search-message").innerHTML =
+        "your search term was not found";
+    }
   };
-  filterThroughNames(nameArray);
+  filterThroughNames(nameHtmlCollection);
 });
 
-
-document.querySelector("#search-input").addEventListener("search", function(event) {
-  // console.log(nameArray);
-  for (let i = 0; i < nameArray.length; i++) {
-    nameArray[i].parentElement.parentElement.style.display = "flex";
-    // console.log(nameArray[i]);
-  }
-});
+document
+  .querySelector("#search-input")
+  .addEventListener("search", function (event) {
+    for (let i = 0; i < nameHtmlCollection.length; i++) {
+      nameHtmlCollection[i].parentElement.parentElement.style.display = "flex";
+      document.getElementById("search-message").innerHTML = "";
+    }
+  });
 
 window.addEventListener("load", (e) => {
   fetch("https://randomuser.me/api/?results=12")
