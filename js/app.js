@@ -6,7 +6,7 @@ function generateHTML(data) {
     const card = document.createElement("div");
     gallery.appendChild(card);
     card.innerHTML = `
-                <div class="card show">
+                <div class="card">
                     <div class="card-img-container">
                         <img class="card-img" src="${employee.picture.thumbnail}" alt="profile picture">
                     </div>
@@ -82,16 +82,9 @@ function addClickHandlers(data) {
 const searchInput = document.querySelector("#search-input");
 searchInput.addEventListener("keyup", (e) => {
   const searchString = e.target.value.toLowerCase();
-  //console.log(searchString);
   const filterThroughNames = (nameArray) => {
     for (let i = 0; i < nameArray.length; i++) {
       if (!nameArray[i].textContent.toLowerCase().includes(searchString)) {
-        // console.log(`nameArray is ${nameArray[i].innerHTML}`);
-      //} else {
-        //(!nameArray[i].textContent.toLowerCase().includes(searchString))
-        //console.log(nameArray[i].parentElement.parentElement);
-        
-        // nameArray[i].parentElement.parentElement.classList.remove("show");
         nameArray[i].parentElement.parentElement.style.display = "none";
       }
     }
@@ -99,21 +92,14 @@ searchInput.addEventListener("keyup", (e) => {
   filterThroughNames(nameArray);
 });
 
-// const filteredEmployees = nameArray.filter((searchString) => {
-//   return (
-//   nameArray.textContent.toLowerCase().includes(searchString)
-//     // employee.name.last.toLowerCase().includes(searchString)
-//   );
-// });
 
-// function searchFunction(searchInput, names) {
-// console.log(searchInput);
-// console.log(names);
-// for (let i = 0; i < names.length; i++) {
-//   if (searchInput.value.length !== 0 && names[i].textContent.toLowerCase().includes(searchInput.value.toLowerCase())) {
-//     names[i].classList.add('match');
-//   }
-// }
+document.querySelector("#search-input").addEventListener("search", function(event) {
+  // console.log(nameArray);
+  for (let i = 0; i < nameArray.length; i++) {
+    nameArray[i].parentElement.parentElement.style.display = "flex";
+    // console.log(nameArray[i]);
+  }
+});
 
 window.addEventListener("load", (e) => {
   fetch("https://randomuser.me/api/?results=12")
