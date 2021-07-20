@@ -1,5 +1,5 @@
 const gallery = document.getElementById("gallery");
-
+const nameHtmlCollection = document.getElementsByClassName("name");
 // This function creates a card for each employee returned by the api call
 function generateHTML(data) {
   data.results.map((employee) => {
@@ -11,7 +11,7 @@ function generateHTML(data) {
                         <img class="card-img" src="${employee.picture.thumbnail}" alt="profile picture">
                     </div>
                     <div class="card-info-container">
-                        <h3 id="name" class="card-name cap">${employee.name.first} ${employee.name.last}</h3>
+                        <h3 class="card-name cap name">${employee.name.first} ${employee.name.last}</h3>
                         <p class="card-text">${employee.email}</p>
                         <p class="card-text cap">${employee.location.city}, ${employee.location.state}</p>
                     </div>
@@ -47,7 +47,7 @@ function updateModal(employee) {
   var modalCustomContent = `<img class="modal-img" src="${
     employee.picture.medium
   }" alt="profile picture">
-                        <h3 id="name" class="modal-name cap">${
+                        <h3 class="modal-name cap name">${
                           employee.name.first
                         } ${employee.name.last}</h3>
                         <p class="modal-text">${employee.email}</p>
@@ -66,7 +66,7 @@ function updateModal(employee) {
 
   modalInfoContainer.insertAdjacentHTML("afterbegin", modalCustomContent);
 }
-//
+
 function addClickHandlers(data) {
   const cardArray = document.getElementsByClassName("card");
   for (let i = 0; i < cardArray.length; i++) {
@@ -78,7 +78,46 @@ function addClickHandlers(data) {
     });
   }
 }
-// 
+
+const searchInput = document.querySelector("#search-input");
+searchInput.addEventListener("keyup", (e) => {
+  const searchString = e.target.value.toLowerCase();
+  let noMatch = true;
+  const filterThroughNames = (nameHtmlCollection) => {
+    for (let i = 0; i < nameHtmlCollection.length; i++) {
+      console.log(nameHtmlCollection[i].textContent.indexOf(searchString));
+      if (
+        !nameHtmlCollection[i].textContent.toLowerCase().includes(searchString)
+      ) {
+        nameHtmlCollection[i].parentElement.parentElement.style.display =
+          "none";
+      }
+    }
+    for (let i = 0; i < nameHtmlCollection.length; i++) {
+      if (
+        !nameHtmlCollection[i].textContent.toLowerCase().includes(searchString)
+      )
+        continue;
+      noMatch = false;
+      break;
+    }
+    if (noMatch) {
+      document.getElementById("search-message").innerHTML =
+        "your search term was not found";
+    }
+  };
+  filterThroughNames(nameHtmlCollection);
+});
+
+document
+  .querySelector("#search-input")
+  .addEventListener("search", function (event) {
+    for (let i = 0; i < nameHtmlCollection.length; i++) {
+      nameHtmlCollection[i].parentElement.parentElement.style.display = "flex";
+      document.getElementById("search-message").innerHTML = "";
+    }
+  });
+
 window.addEventListener("load", (e) => {
   fetch("https://randomuser.me/api/?results=12")
     .then((response) => response.json())

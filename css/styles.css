@@ -43,6 +43,12 @@ header h1 {
     outline: none;
 }
 
+.search-message {
+    font-size: 2.25em;
+    color: rgba(50, 50, 50, 0.9);
+    margin-top: 35px;
+}
+
 .search-input:active, .search-input:hover, .search-input:focus {
     border: 1px solid rgba(50, 50, 50, 0.9);
 }
@@ -76,7 +82,6 @@ header h1 {
     max-width: 1200px;
     margin: auto;
 }
-  
 .card {
     display: flex;
     flex-direction: row;
