@@ -1,6 +1,9 @@
 const gallery = document.getElementById("gallery");
 const nameHtmlCollection = document.getElementsByClassName("name");
-// This function creates a card for each employee returned by the api call
+
+
+// Creates a card for each employee returned by the api call
+// takes API output as argument and fills profile card with relevant information
 function generateHTML(data) {
   data.results.map((employee) => {
     const card = document.createElement("div");
@@ -22,6 +25,7 @@ function generateHTML(data) {
   return data;
 }
 
+// Creates empty modal
 function generateModal() {
   const modalConstantData = `
             <div class="modal-container">
@@ -47,6 +51,8 @@ function generateModal() {
   });
 }
 
+// Adds profile info to modal
+// takes API output as argument and fills clicked modal with relevant profile information
 function updateModal(employee) {
   const modalInfoContainer = document.querySelector(".modal-info-container");
   modalInfoContainer.innerHTML = "";
@@ -71,8 +77,9 @@ function updateModal(employee) {
   modalInfoContainer.insertAdjacentHTML("afterbegin", modalCustomContent);
 }
 
-
-function addClickHandlers(data) {
+// Toggles modal view
+// takes API output as argument and calls updateModal
+function displayModal(data) {
   const cardArray = document.getElementsByClassName("card");
   for (let i = 0; i < cardArray.length; i++) {
     cardArray[i].addEventListener("click", (event) => {
@@ -114,6 +121,9 @@ console.log(`currentIndex = ${currentIndex}`);
 });
 }
 
+// Matches search input with relevant profiles on page
+// Displays matching profiles
+// Displays message is no profile is matching the query
 const searchInput = document.querySelector("#search-input");
 searchInput.addEventListener("keyup", (e) => {
   const searchString = e.target.value.toLowerCase();
@@ -144,6 +154,7 @@ searchInput.addEventListener("keyup", (e) => {
   filterThroughNames(nameHtmlCollection);
 });
 
+// Assigns a search listener to search box  
 document
   .querySelector("#search-input")
   .addEventListener("search", function (event) {
@@ -153,11 +164,12 @@ document
     }
   });
 
+// Calls each relevant function asynchronously
 window.addEventListener("load", (e) => {
   fetch("https://randomuser.me/api/?results=12")
     .then((response) => response.json())
     .then(generateHTML)
-    .then(addClickHandlers)
+    .then(displayModal)
     .then(modalToggle)
     .catch((err) => console.log("Error Fetching API: ", err));
 });
