@@ -166,7 +166,7 @@ document
 
 // Calls each relevant function asynchronously
 window.addEventListener("load", (e) => {
-  fetch("https://randomuser.me/api/?results=12")
+  fetch("https://randomuser.me/api/?nat=us&results=12")
     .then((response) => response.json())
     .then(generateHTML)
     .then(displayModal)
