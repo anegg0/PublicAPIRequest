@@ -82,6 +82,8 @@ header h1 {
     max-width: 1200px;
     margin: auto;
 }
+
+/* Removed border and background, added min-width */
 .card {
     display: flex;
     flex-direction: row;
@@ -95,11 +97,11 @@ header h1 {
     padding: 10px;
     background: rgba(207, 195, 195, 0.9);
     border-radius: 0.25em;
-    /* border: 1px solid rgba(50, 50, 50, 0.3); */
     transition: .4s ease-out;
     overflow: hidden;
 }
 
+/* modified border-radius */
 .card-img {
     width: 95px;
     margin: 10px 15px auto 10px;
@@ -152,6 +154,7 @@ header h1 {
     transition: .4s ease-out;
 }
 
+/* removed outline */
 .modal-close-btn {
     position: absolute;
     top: 15px;
@@ -200,6 +203,7 @@ header h1 {
 }
 
 
+/* removed outline */
 .modal-btn-container .btn {
     display: inline-block;
     cursor: pointer;
