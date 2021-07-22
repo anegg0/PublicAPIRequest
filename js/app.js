@@ -95,8 +95,8 @@ function modalToggle(data) {
     const modalNext = document.querySelector("#modal-next");
     let currentIndex = 0;
     modalPrev.addEventListener("click", (event) => {
-    if (currentIndex == numberOfEmployeesToDisplay - 1) {
-      currentIndex = 0;
+    if (currentIndex == 0) {
+      currentIndex = numberOfEmployeesToDisplay - 1;
     } else {
       currentIndex--;
     }
