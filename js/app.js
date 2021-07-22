@@ -1,6 +1,7 @@
 const gallery = document.getElementById("gallery");
 const nameHtmlCollection = document.getElementsByClassName("name");
 
+document.getElementById("search-message").style.display = "none";
 
 // Creates a card for each employee returned by the api call
 // takes API output as argument and fills profile card with relevant information
@@ -56,7 +57,9 @@ function generateModal() {
 function updateModal(employee) {
   const modalInfoContainer = document.querySelector(".modal-info-container");
   modalInfoContainer.innerHTML = "";
-  var modalCustomContent = `<img class="modal-img" src="${ employee.picture.medium }" alt="profile picture">
+  var modalCustomContent = `<img class="modal-img" src="${
+    employee.picture.medium
+  }" alt="profile picture">
                         <h3 class="modal-name cap name">${
                           employee.name.first
                         } ${employee.name.last}</h3>
@@ -97,25 +100,25 @@ function modalToggle(data) {
   const wrapper = document.querySelector(".wrapper");
   wrapper.style.display = "none";
   const numberOfEmployeesToDisplay = data.results.length;
-    const modalPrev = document.querySelector("#modal-prev");
-    const modalNext = document.querySelector("#modal-next");
-    let currentIndex = 0;
-    modalPrev.addEventListener("click", (event) => {
+  const modalPrev = document.querySelector("#modal-prev");
+  const modalNext = document.querySelector("#modal-next");
+  let currentIndex = 0;
+  modalPrev.addEventListener("click", (event) => {
     if (currentIndex == 0) {
       currentIndex = numberOfEmployeesToDisplay - 1;
     } else {
       currentIndex--;
     }
-      updateModal(data.results[currentIndex]);
-});
-    modalNext.addEventListener("click", (event) => {
+    updateModal(data.results[currentIndex]);
+  });
+  modalNext.addEventListener("click", (event) => {
     if (currentIndex == numberOfEmployeesToDisplay - 1) {
       currentIndex = 0;
     } else {
       currentIndex++;
     }
-      updateModal(data.results[currentIndex]);
-});
+    updateModal(data.results[currentIndex]);
+  });
 }
 
 // Matches search input with relevant profiles on page
@@ -145,12 +148,13 @@ searchInput.addEventListener("keyup", (e) => {
     if (noMatch) {
       document.getElementById("search-message").innerHTML =
         "your search term was not found";
+      document.getElementById("search-message").style.display = "flex";
     }
   };
   filterThroughNames(nameHtmlCollection);
 });
 
-// Assigns a search listener to search box  
+// Assigns a search listener to search box
 document
   .querySelector("#search-input")
   .addEventListener("search", function (event) {
