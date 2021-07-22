@@ -29,7 +29,13 @@ function generateModal() {
                     <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
                     <div class="modal-info-container">
                     </div>
-                </div>`;
+                </div>
+                <div class="modal-btn-container">
+                    <button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
+                    <button type="button" id="modal-next" class="modal-next btn">Next</button>
+                </div>
+            </div>
+                `;
   var div = document.createElement("div");
   div.setAttribute("class", "wrapper");
   div.innerHTML = modalConstantData;
@@ -44,9 +50,7 @@ function generateModal() {
 function updateModal(employee) {
   const modalInfoContainer = document.querySelector(".modal-info-container");
   modalInfoContainer.innerHTML = "";
-  var modalCustomContent = `<img class="modal-img" src="${
-    employee.picture.medium
-  }" alt="profile picture">
+  var modalCustomContent = `<img class="modal-img" src="${ employee.picture.medium }" alt="profile picture">
                         <h3 class="modal-name cap name">${
                           employee.name.first
                         } ${employee.name.last}</h3>
@@ -67,16 +71,47 @@ function updateModal(employee) {
   modalInfoContainer.insertAdjacentHTML("afterbegin", modalCustomContent);
 }
 
+
 function addClickHandlers(data) {
   const cardArray = document.getElementsByClassName("card");
   for (let i = 0; i < cardArray.length; i++) {
     cardArray[i].addEventListener("click", (event) => {
       const wrapper = document.querySelector(".wrapper");
       wrapper.style.display = "flex";
-      console.log(data.results[i]);
       updateModal(data.results[i]);
     });
   }
+  return data;
+}
+
+// Toggles back and forth between employees when the modal window is open
+// Takes API output as argument and updates modal with each new profile
+function modalToggle(data) {
+  const wrapper = document.querySelector(".wrapper");
+  wrapper.style.display = "none";
+  const numberOfEmployeesToDisplay = data.results.length;
+  console.log(`numberOfEmployeesToDisplay = ${numberOfEmployeesToDisplay}`);
+    const modalPrev = document.querySelector("#modal-prev");
+    const modalNext = document.querySelector("#modal-next");
+    let currentIndex = 0;
+    modalPrev.addEventListener("click", (event) => {
+    if (currentIndex == numberOfEmployeesToDisplay - 1) {
+      currentIndex = 0;
+    } else {
+      currentIndex--;
+    }
+console.log(`currentIndex = ${currentIndex}`);
+      updateModal(data.results[currentIndex]);
+});
+    modalNext.addEventListener("click", (event) => {
+    if (currentIndex == numberOfEmployeesToDisplay - 1) {
+      currentIndex = 0;
+    } else {
+      currentIndex++;
+    }
+console.log(`currentIndex = ${currentIndex}`);
+      updateModal(data.results[currentIndex]);
+});
 }
 
 const searchInput = document.querySelector("#search-input");
@@ -123,5 +158,6 @@ window.addEventListener("load", (e) => {
     .then((response) => response.json())
     .then(generateHTML)
     .then(addClickHandlers)
+    .then(modalToggle)
     .catch((err) => console.log("Error Fetching API: ", err));
 });
