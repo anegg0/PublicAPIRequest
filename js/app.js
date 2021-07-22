@@ -97,7 +97,6 @@ function modalToggle(data) {
   const wrapper = document.querySelector(".wrapper");
   wrapper.style.display = "none";
   const numberOfEmployeesToDisplay = data.results.length;
-  console.log(`numberOfEmployeesToDisplay = ${numberOfEmployeesToDisplay}`);
     const modalPrev = document.querySelector("#modal-prev");
     const modalNext = document.querySelector("#modal-next");
     let currentIndex = 0;
@@ -107,7 +106,6 @@ function modalToggle(data) {
     } else {
       currentIndex--;
     }
-console.log(`currentIndex = ${currentIndex}`);
       updateModal(data.results[currentIndex]);
 });
     modalNext.addEventListener("click", (event) => {
@@ -116,7 +114,6 @@ console.log(`currentIndex = ${currentIndex}`);
     } else {
       currentIndex++;
     }
-console.log(`currentIndex = ${currentIndex}`);
       updateModal(data.results[currentIndex]);
 });
 }
@@ -130,7 +127,6 @@ searchInput.addEventListener("keyup", (e) => {
   let noMatch = true;
   const filterThroughNames = (nameHtmlCollection) => {
     for (let i = 0; i < nameHtmlCollection.length; i++) {
-      console.log(nameHtmlCollection[i].textContent.indexOf(searchString));
       if (
         !nameHtmlCollection[i].textContent.toLowerCase().includes(searchString)
       ) {
