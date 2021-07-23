@@ -57,6 +57,7 @@ function generateModal() {
 function updateModal(employee) {
   const modalInfoContainer = document.querySelector(".modal-info-container");
   modalInfoContainer.innerHTML = "";
+  const date = (`${employee.dob.date.slice(5,7)}-${employee.dob.date.slice(8,10)}-${employee.dob.date.slice(0,4)}`);
   var modalCustomContent = `<img class="modal-img" src="${
     employee.picture.large
   }" alt="profile picture">
@@ -72,14 +73,10 @@ function updateModal(employee) {
                         } ${employee.location.street.name}, ${
     employee.location.city
   }, ${employee.location.state} ${employee.location.postcode}</p>
-                        <p class="modal-text">Birthday: ${employee.dob.date.slice(
-                          0,
-                          10
-                        )}</p>`;
+                        <p class="modal-text">${date}</p>`;
 
   modalInfoContainer.insertAdjacentHTML("afterbegin", modalCustomContent);
 }
-
 // Toggles modal view
 // takes API output as argument and calls updateModal
 function displayModal(data) {
