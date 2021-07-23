@@ -12,7 +12,7 @@ function generateHTML(data) {
     card.innerHTML = `
                 <div class="card">
                     <div class="card-img-container">
-                        <img class="card-img" src="${employee.picture.thumbnail}" alt="profile picture">
+                        <img class="card-img" src="${employee.picture.large}" alt="profile picture">
                     </div>
                     <div class="card-info-container">
                         <h3 class="card-name cap name">${employee.name.first} ${employee.name.last}</h3>
@@ -58,7 +58,7 @@ function updateModal(employee) {
   const modalInfoContainer = document.querySelector(".modal-info-container");
   modalInfoContainer.innerHTML = "";
   var modalCustomContent = `<img class="modal-img" src="${
-    employee.picture.medium
+    employee.picture.large
   }" alt="profile picture">
                         <h3 class="modal-name cap name">${
                           employee.name.first
